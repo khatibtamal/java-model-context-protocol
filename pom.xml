@@ -16,6 +16,7 @@
 	<packaging>pom</packaging>
 	<modules>
 		<module>spring-boot-transport</module>
+		<module>http-sse-transport</module>
 	</modules>
 	
 	<name>mcp-parent</name>
