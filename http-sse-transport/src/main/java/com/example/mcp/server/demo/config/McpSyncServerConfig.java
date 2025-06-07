@@ -1,7 +1,7 @@
 package com.example.mcp.server.demo.config;
 
 import com.example.mcp.server.demo.prompts.DemoPrompt;
-import com.example.mcp.server.demo.tools.ItemTool;
+import com.example.mcp.server.demo.resources.ItemResource;
 import com.example.mcp.server.demo.tools.WeatherTool;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.modelcontextprotocol.server.McpServer;
@@ -17,13 +17,13 @@ import org.springframework.web.servlet.function.*;
 public class McpSyncServerConfig {
 
     private final WeatherTool weatherTool;
-    private final ItemTool itemTool;
     private final DemoPrompt demoPrompt;
+    private final ItemResource itemResource;
 
-    public McpSyncServerConfig(final WeatherTool weatherTool, final ItemTool itemTool, final DemoPrompt demoPrompt) {
+    public McpSyncServerConfig(final WeatherTool weatherTool, final DemoPrompt demoPrompt, final ItemResource itemResource) {
         this.weatherTool = weatherTool;
-        this.itemTool = itemTool;
         this.demoPrompt = demoPrompt;
+        this.itemResource = itemResource;
     }
 
     @Bean
@@ -51,11 +51,13 @@ public class McpSyncServerConfig {
                 .capabilities(McpSchema.ServerCapabilities.builder()
                         .tools(true)
                         .prompts(true)
+                        .resources(true, true)
                         .build())
                 .build();
 
         addTools(mcpSyncServer);
         addPrompts(mcpSyncServer);
+        addResources(mcpSyncServer);
 
         /**
          * Step 4: Expose the router functions so that MCP Clients can connect
@@ -71,15 +73,7 @@ public class McpSyncServerConfig {
                 weatherTool.getExecutionFunction()
         );
 
-        McpServerFeatures.SyncToolSpecification itemSyncTool = new McpServerFeatures.SyncToolSpecification(
-                new McpSchema.Tool(itemTool.getName(),
-                        itemTool.getDescription(),
-                        itemTool.inputJsonSchema()),
-                itemTool.getExecutionFunction()
-        );
-
         mcpSyncServer.addTool(weatherSyncTool);
-        mcpSyncServer.addTool(itemSyncTool);
     }
 
     private void addPrompts(McpSyncServer mcpSyncServer) {
@@ -88,5 +82,13 @@ public class McpSyncServerConfig {
         );
 
         mcpSyncServer.addPrompt(promptSpec);
+    }
+
+    private void addResources(McpSyncServer mcpSyncServer) {
+        McpServerFeatures.SyncResourceSpecification resourceSpecification = new McpServerFeatures.SyncResourceSpecification(
+                new McpSchema.Resource(itemResource.uri(), itemResource.name(), itemResource.description(), itemResource.mimeType(), itemResource.annotations()),
+                itemResource.resourceReadHandler()
+        );
+        mcpSyncServer.addResource(resourceSpecification);
     }
 }
