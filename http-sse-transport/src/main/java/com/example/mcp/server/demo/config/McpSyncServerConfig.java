@@ -1,5 +1,6 @@
 package com.example.mcp.server.demo.config;
 
+import com.example.mcp.server.demo.prompts.DemoPrompt;
 import com.example.mcp.server.demo.tools.ItemTool;
 import com.example.mcp.server.demo.tools.WeatherTool;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -17,10 +18,12 @@ public class McpSyncServerConfig {
 
     private final WeatherTool weatherTool;
     private final ItemTool itemTool;
+    private final DemoPrompt demoPrompt;
 
-    public McpSyncServerConfig(final WeatherTool weatherTool, final ItemTool itemTool) {
+    public McpSyncServerConfig(final WeatherTool weatherTool, final ItemTool itemTool, final DemoPrompt demoPrompt) {
         this.weatherTool = weatherTool;
         this.itemTool = itemTool;
+        this.demoPrompt = demoPrompt;
     }
 
     @Bean
@@ -41,13 +44,18 @@ public class McpSyncServerConfig {
          */
 
         // This is an example of a bare bones server, with no capabilities.
-        // McpSyncServer mcpSyncServer = McpServer.sync(transportProvider).build();
+//        McpSyncServer mcpSyncServer = McpServer.sync(transportProvider).build();
 
-        // This is an example of a server with capabilities, specifically tools.
+        // This is an example of a server with capabilities.
         McpSyncServer mcpSyncServer = McpServer.sync(transportProvider)
-                .capabilities(McpSchema.ServerCapabilities.builder().tools(true).build())
+                .capabilities(McpSchema.ServerCapabilities.builder()
+                        .tools(true)
+                        .prompts(true)
+                        .build())
                 .build();
+
         addTools(mcpSyncServer);
+        addPrompts(mcpSyncServer);
 
         /**
          * Step 4: Expose the router functions so that MCP Clients can connect
@@ -72,5 +80,13 @@ public class McpSyncServerConfig {
 
         mcpSyncServer.addTool(weatherSyncTool);
         mcpSyncServer.addTool(itemSyncTool);
+    }
+
+    private void addPrompts(McpSyncServer mcpSyncServer) {
+        McpServerFeatures.SyncPromptSpecification promptSpec = new McpServerFeatures.SyncPromptSpecification(
+                demoPrompt.getPrompt(), demoPrompt.getPromptHandler()
+        );
+
+        mcpSyncServer.addPrompt(promptSpec);
     }
 }
