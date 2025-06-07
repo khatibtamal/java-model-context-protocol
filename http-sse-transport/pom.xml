@@ -11,9 +11,9 @@
     <artifactId>http-sse-transport</artifactId>
 
     <properties>
-        <mcp.sdk.version>0.9.0</mcp.sdk.version>
-        <mcp.sdk.web.sse.transport.version>0.9.0</mcp.sdk.web.sse.transport.version>
-        <spring.boot.web.starter.version>3.4.5</spring.boot.web.starter.version>
+        <mcp.sdk.version>0.10.0</mcp.sdk.version>
+        <mcp.sdk.web.sse.transport.version>0.10.0</mcp.sdk.web.sse.transport.version>
+        <spring.boot.web.starter.version>3.5.0</spring.boot.web.starter.version>
     </properties>
 
     <dependencies>
