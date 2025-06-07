@@ -13,6 +13,7 @@
     <properties>
         <mcp.sdk.version>0.9.0</mcp.sdk.version>
         <mcp.sdk.web.sse.transport.version>0.9.0</mcp.sdk.web.sse.transport.version>
+        <spring.boot.web.starter.version>3.4.5</spring.boot.web.starter.version>
     </properties>
 
     <dependencies>
@@ -28,13 +29,8 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot</artifactId>
-            <version>3.4.5</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-            <version>3.4.5</version>
+            <version>${spring.boot.web.starter.version}</version>
         </dependency>
     </dependencies>
 </project>
