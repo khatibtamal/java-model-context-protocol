@@ -18,6 +18,7 @@
 		<module>spring-boot-transport</module>
 		<module>http-sse-transport</module>
 		<module>http-sse-transport-async-webmvc</module>
+		<module>http-sse-transport-async-webflux</module>
 	</modules>
 	
 	<name>mcp-parent</name>
