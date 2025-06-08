@@ -16,7 +16,7 @@
 	<packaging>pom</packaging>
 	<modules>
 		<module>spring-boot-transport</module>
-		<module>http-sse-transport</module>
+		<module>http-sse-transport-sync-webmvc</module>
 		<module>http-sse-transport-async-webmvc</module>
 		<module>http-sse-transport-async-webflux</module>
 	</modules>

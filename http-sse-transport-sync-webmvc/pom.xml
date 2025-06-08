@@ -8,7 +8,7 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>http-sse-transport</artifactId>
+    <artifactId>http-sse-transport-sync-webmvc</artifactId>
 
     <properties>
         <mcp.sdk.version>0.10.0</mcp.sdk.version>

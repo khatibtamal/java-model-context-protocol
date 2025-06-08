@@ -7,7 +7,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.modelcontextprotocol.server.McpAsyncServer;
 import io.modelcontextprotocol.server.McpServer;
 import io.modelcontextprotocol.server.McpServerFeatures;
-import io.modelcontextprotocol.server.McpSyncServer;
 import io.modelcontextprotocol.server.transport.WebMvcSseServerTransportProvider;
 import io.modelcontextprotocol.spec.McpSchema;
 import org.springframework.context.annotation.Bean;
