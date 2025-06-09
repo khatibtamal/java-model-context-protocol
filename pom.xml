@@ -20,6 +20,7 @@
 		<module>http-sse-transport-async-webmvc</module>
 		<module>http-sse-transport-async-webflux</module>
 		<module>stdio-transport-sync</module>
+		<module>stdio-transport-async</module>
 	</modules>
 	
 	<name>mcp-parent</name>
